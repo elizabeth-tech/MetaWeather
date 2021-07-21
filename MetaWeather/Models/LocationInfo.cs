@@ -14,56 +14,8 @@ namespace MetaWeather.Models
         [JsonPropertyName("timezone")]
         public string Timezone { get; set; }
 
-        public class WeatherInfo
-        {
-            [JsonPropertyName("id")]
-            public long Id { get; set; }
-
-            [JsonPropertyName("weather_state_name")]
-            public string WeatherStateName { get; set; }
-
-            [JsonPropertyName("weather_state_abbr")]
-            public string WeatherStateAbbr { get; set; }
-
-            [JsonPropertyName("wind_direction_compass")]
-            public string WindDirectionCompass { get; set; }
-
-            [JsonPropertyName("created")]
-            public DateTime Created { get; set; }
-
-            [JsonPropertyName("applicable_date")]
-            public DateTime ApplicableDate { get; set; }
-
-            [JsonPropertyName("min_temp")]
-            public double TemporaryMin { get; set; }
-
-            [JsonPropertyName("max_temp")]
-            public double TemporaryMax { get; set; }
-
-            [JsonPropertyName("the_temp")]
-            public double Temporary { get; set; }
-
-            [JsonPropertyName("wind_speed")]
-            public double WindSpeed { get; set; }
-
-            [JsonPropertyName("wind_direction")]
-            public double WindDirection { get; set; }
-
-            [JsonPropertyName("air_pressure")]
-            public double AirPressure { get; set; }
-
-            [JsonPropertyName("humidity")]
-            public int Humidity { get; set; }
-
-            [JsonPropertyName("visibility")]
-            public double Visibility { get; set; }
-
-            [JsonPropertyName("predictability")]
-            public int Predictability { get; set; }
-        }
-
         [JsonPropertyName("consolidated_weather")]      
-        public WeatherInfo[] Weather { get; set; }
+        public WeatherInfo[] Weathers { get; set; }
 
         [JsonPropertyName("sun_rise")]
         public DateTime SunRiseTime { get; set; }

@@ -1,4 +1,5 @@
 ﻿using MetaWeather.Models;
+using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -44,5 +45,12 @@ namespace MetaWeather
         }
 
         public Task<LocationInfo> GetInfoById(WeatherLocation location, CancellationToken cancel = default) => GetInfoById(location.Id, cancel);
+
+        public async Task<WeatherInfo[]> GetWeatherByIdAndTime(int id, DateTime date, CancellationToken cancel = default)
+        {
+            return await Client
+                .GetFromJsonAsync<WeatherInfo[]>($"/api/location/{id}/{date:yyyy}/{date:MM}/{date:dd}/", cancel)
+                .ConfigureAwait(false);
+        }
     }
 }
