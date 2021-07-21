@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MetaWeather
@@ -13,11 +11,21 @@ namespace MetaWeather
     {
         private readonly HttpClient Client;
 
+        private static readonly JsonSerializerOptions serializerOptions = new()
+        {
+            Converters =
+            {
+                new JsonStringEnumConverter()
+            }
+        };
+
         public MetaWeatherClient(HttpClient client) => Client = client;
 
-        public async Task<WeatherLocation[]> GetLocationByName(string name)
+        public async Task<WeatherLocation[]> GetLocationByName(string name, CancellationToken cancel = default)
         {
-            return await Client.GetFromJsonAsync<WeatherLocation[]>($"/api/location/search/?query={name}");
+            return await Client
+                .GetFromJsonAsync<WeatherLocation[]>($"/api/location/search/?query={name}", serializerOptions, cancel)
+                .ConfigureAwait(false);
         }
     }
 
@@ -30,12 +38,22 @@ namespace MetaWeather
         public string Title { get; set; }
 
         [JsonPropertyName("location_type")]
-        public string Type { get; set; }
+        public LocationType Type { get; set; }
 
         [JsonPropertyName("latt_long")]
         public string Location { get; set; }
 
         [JsonPropertyName("distance")]
         public int Distance { get; set; }
+    }
+
+    public enum LocationType
+    {
+        City,
+        Region,
+        State,
+        Province,
+        Country,
+        Continent
     }
 }
