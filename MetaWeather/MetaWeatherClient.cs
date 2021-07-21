@@ -29,17 +29,17 @@ namespace MetaWeather
                 .ConfigureAwait(false);
         }
 
-        public async Task<WeatherLocation[]> GetInfoByLattLong((double latitude, double longitude) location, CancellationToken cancel = default)
+        public async Task<WeatherLocation[]> GetInfoByLattLong((double latitude, double longitude) coordinates, CancellationToken cancel = default)
         {
             return await Client
-                .GetFromJsonAsync<WeatherLocation[]>($"/api/location/search/?lattlong={location.latitude.ToString(CultureInfo.InvariantCulture)},{location.longitude.ToString(CultureInfo.InvariantCulture)}", /*serializerOptions*/ cancel)
+                .GetFromJsonAsync<WeatherLocation[]>($"/api/location/search/?lattlong={coordinates.latitude.ToString(CultureInfo.InvariantCulture)},{coordinates.longitude.ToString(CultureInfo.InvariantCulture)}", /*serializerOptions*/ cancel)
                 .ConfigureAwait(false);
         }
 
-        public async Task<LocationInfo> GetInfoById(int woeid, CancellationToken cancel = default)
+        public async Task<LocationInfo> GetInfoById(int id, CancellationToken cancel = default)
         {
             return await Client
-                .GetFromJsonAsync<LocationInfo>($"/api/location/{woeid}", cancel)
+                .GetFromJsonAsync<LocationInfo>($"/api/location/{id}", cancel)
                 .ConfigureAwait(false);
         }
     }

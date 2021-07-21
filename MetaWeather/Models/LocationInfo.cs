@@ -1,56 +1,95 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace MetaWeather.Models
 {
-    public class LocationInfo
+    public class LocationInfo : WeatherLocationBase
     {
-        public Consolidated_Weather[] consolidated_weather { get; set; }
-        public DateTime time { get; set; }
-        public DateTime sun_rise { get; set; }
-        public DateTime sun_set { get; set; }
-        public string timezone_name { get; set; }
-        public Parent parent { get; set; }
-        public Source[] sources { get; set; }
-        public string title { get; set; }
-        public string location_type { get; set; }
-        public int woeid { get; set; }
-        public string latt_long { get; set; }
-        public string timezone { get; set; }
-    }
+        [JsonPropertyName("time")]
+        public DateTime Time { get; set; }
 
-    public class Parent
-    {
-        public string title { get; set; }
-        public string location_type { get; set; }
-        public int woeid { get; set; }
-        public string latt_long { get; set; }
-    }
+        [JsonPropertyName("timezone_name")]
+        public string TimezoneName { get; set; }
 
-    public class Consolidated_Weather
-    {
-        public long id { get; set; }
-        public string weather_state_name { get; set; }
-        public string weather_state_abbr { get; set; }
-        public string wind_direction_compass { get; set; }
-        public DateTime created { get; set; }
-        public string applicable_date { get; set; }
-        public float min_temp { get; set; }
-        public float max_temp { get; set; }
-        public float the_temp { get; set; }
-        public float wind_speed { get; set; }
-        public float wind_direction { get; set; }
-        public float air_pressure { get; set; }
-        public int humidity { get; set; }
-        public float visibility { get; set; }
-        public int predictability { get; set; }
-    }
+        [JsonPropertyName("timezone")]
+        public string Timezone { get; set; }
 
-    public class Source
-    {
-        public string title { get; set; }
-        public string slug { get; set; }
-        public string url { get; set; }
-        public int crawl_rate { get; set; }
-    }
+        public class WeatherInfo
+        {
+            [JsonPropertyName("id")]
+            public long Id { get; set; }
 
+            [JsonPropertyName("weather_state_name")]
+            public string WeatherStateName { get; set; }
+
+            [JsonPropertyName("weather_state_abbr")]
+            public string WeatherStateAbbr { get; set; }
+
+            [JsonPropertyName("wind_direction_compass")]
+            public string WindDirectionCompass { get; set; }
+
+            [JsonPropertyName("created")]
+            public DateTime Created { get; set; }
+
+            [JsonPropertyName("applicable_date")]
+            public DateTime ApplicableDate { get; set; }
+
+            [JsonPropertyName("min_temp")]
+            public double TemporaryMin { get; set; }
+
+            [JsonPropertyName("max_temp")]
+            public double TemporaryMax { get; set; }
+
+            [JsonPropertyName("the_temp")]
+            public double Temporary { get; set; }
+
+            [JsonPropertyName("wind_speed")]
+            public double WindSpeed { get; set; }
+
+            [JsonPropertyName("wind_direction")]
+            public double WindDirection { get; set; }
+
+            [JsonPropertyName("air_pressure")]
+            public double AirPressure { get; set; }
+
+            [JsonPropertyName("humidity")]
+            public int Humidity { get; set; }
+
+            [JsonPropertyName("visibility")]
+            public double Visibility { get; set; }
+
+            [JsonPropertyName("predictability")]
+            public int Predictability { get; set; }
+        }
+
+        [JsonPropertyName("consolidated_weather")]      
+        public WeatherInfo[] Weather { get; set; }
+
+        [JsonPropertyName("sun_rise")]
+        public DateTime SunRiseTime { get; set; }
+
+        [JsonPropertyName("sun_set")]
+        public DateTime SunSetTime { get; set; }
+
+        [JsonPropertyName("parent")]
+        public WeatherLocationBase Parent { get; set; }
+
+        public class Source
+        {
+            [JsonPropertyName("title")]
+            public string Title { get; set; }
+
+            [JsonPropertyName("slug")]
+            public string Slug { get; set; }
+
+            [JsonPropertyName("url")]
+            public string Url { get; set; }
+
+            [JsonPropertyName("crawl_rate")]
+            public int CrawlRate { get; set; }
+        }
+
+        [JsonPropertyName("sources")]
+        public Source[] Sources { get; set; }   
+    }
 }
