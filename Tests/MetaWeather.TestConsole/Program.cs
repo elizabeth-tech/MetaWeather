@@ -18,15 +18,20 @@ namespace MetaWeather.TestConsole
             .CreateDefaultBuilder(args)
             .ConfigureServices(ConfigureServices);
 
+        // Регистрируем все сервисы
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-
+            services.AddHttpClient<MetaWeatherClient>(client => client.BaseAddress = new Uri(host.Configuration["MetaWeather"]));
         }
 
         static async Task Main(string[] args)
         {
             using var host = Hosting;
             await host.StartAsync();
+
+            var weather = Services.GetRequiredService<MetaWeatherClient>();
+
+            var location = await weather.GetLocationByName("Moscow");
 
             Console.WriteLine("Completed successfully!");
             Console.ReadKey();
