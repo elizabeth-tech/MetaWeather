@@ -35,6 +35,8 @@ namespace MetaWeather.TestConsole
 
             var location = await weather.GetInfoByLattLong(moscow[0].Location);
 
+            var info = await weather.GetInfoById(moscow[0].Id);
+
             Console.WriteLine("Completed successfully!");
             Console.ReadKey();
             await host.StopAsync();

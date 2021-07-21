@@ -8,3 +8,7 @@ MetaWeather не требует регистрации API ключей
 а с репозиториями.
 
 
+Сайт погоды: https://www.metaweather.com/api/
+
+
+
