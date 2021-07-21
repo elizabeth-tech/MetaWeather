@@ -31,7 +31,9 @@ namespace MetaWeather.TestConsole
 
             var weather = Services.GetRequiredService<MetaWeatherClient>();
 
-            var location = await weather.GetLocationByName("Moscow");
+            var moscow = await weather.GetInfoByName("Moscow");
+
+            var location = await weather.GetInfoByLattLong(moscow[0].Location);
 
             Console.WriteLine("Completed successfully!");
             Console.ReadKey();
