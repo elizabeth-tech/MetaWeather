@@ -46,11 +46,17 @@ namespace MetaWeather
 
         public Task<LocationInfo> GetInfoById(WeatherLocation location, CancellationToken cancel = default) => GetInfoById(location.Id, cancel);
 
-        public async Task<WeatherInfo[]> GetWeatherByIdAndTime(int id, DateTime date, CancellationToken cancel = default)
+        public async Task<WeatherInfo[]> GetWeather(int id, DateTime date, CancellationToken cancel = default)
         {
             return await Client
                 .GetFromJsonAsync<WeatherInfo[]>($"/api/location/{id}/{date:yyyy}/{date:MM}/{date:dd}/", cancel)
                 .ConfigureAwait(false);
         }
+
+        public Task<WeatherInfo[]> GetWeather(LocationInfo location, DateTime date, CancellationToken cancel = default) => 
+            GetWeather(location.Id, date, cancel);
+
+        public Task<WeatherInfo[]> GetWeather(WeatherLocation location, DateTime date, CancellationToken cancel = default) =>
+            GetWeather(location.Id, date, cancel);
     }
 }

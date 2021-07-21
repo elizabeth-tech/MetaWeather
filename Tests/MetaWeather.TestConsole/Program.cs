@@ -37,7 +37,7 @@ namespace MetaWeather.TestConsole
 
             //var info = await weather.GetInfoById(moscow[0]);
 
-            var weather_info = await weather.GetWeatherByIdAndTime(moscow[0].Id, DateTime.Now);
+            var weather_info = await weather.GetWeather(moscow[0].Id, DateTime.Now);
 
             Console.WriteLine("Completed successfully!");
             Console.ReadKey();
